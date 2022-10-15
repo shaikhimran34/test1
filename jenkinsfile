@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+    environment{
+        name= 'Shaikh'
+    }
+    parameters {
+        string(name: 'student',defaultValue: 'shaikh', description: "Enter your name ")
+        choice(name: 'address',choices: ['Pune', 'Aurangabad', 'Mumbai'], description: "")
+        booleanParam(name: 'isStudent', defaultValue: true, description:"identify the word")
+    }
+
+    stages {
+        stage('Build Stage') {
+            steps {
+                echo 'This is build stage'
+                sh 'echo "${name}"'
+                sh 'echo "${student}"'
+                sh 'echo "${address}"'
+                sh 'echo "${isStudent}"'
+            }
+        }
+        stage('QC stage') {
+            input{
+                message "is code is working"
+                ok "yes its working"
+            }
+            steps {
+                echo 'This is QC stage'
+            }
+        }
+        stage('Test satge') {
+            steps {
+                echo 'This is Testing stage'
+                sh 'echo "${name}"'
+            }
+        }
+         stage('Deploy_SIT') {
+            steps {
+                echo 'This is SIT Stage'
+            }
+        }
+        stage('biuld_UAT') {
+            steps {
+                echo 'This is deploy UAT Stage'
+                sh 'qwertyu'
+            }
+        }
+       
+    }
+     post {
+            always {
+                echo 'I will always say Hello again'
+            }
+            success {
+                echo 'I will say Hello again on success'
+            }
+            failure {
+                echo 'I will say Hello again on failure'
+                sh "date"
+            }
+        }
+}
