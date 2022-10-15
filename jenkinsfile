@@ -42,7 +42,7 @@ pipeline {
         stage('biuld_UAT') {
             steps {
                 echo 'This is deploy UAT Stage'
-                sh 'qwertyu'
+                sh 'pwd'
             }
         }
        
